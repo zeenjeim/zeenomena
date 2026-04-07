@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const projects = await getCollection('projects');
+---
+<BaseLayout>
+  <main class="min-h-screen flex items-center justify-center px-6">
+    <div class="text-center max-w-2xl mx-auto">
+      <h1
+        class="text-5xl font-semibold leading-tight mb-4 bg-clip-text text-transparent"
+        style="background-image: linear-gradient(135deg, #22d3ee, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+      >
+        Building stuff with AI.
+      </h1>
+      <p class="text-muted text-lg mb-8">Stack verified. Content coming soon.</p>
+      <a
+        href="#"
+        class="inline-block px-6 py-3 rounded-lg font-semibold text-white
+               hover:opacity-90 transition-opacity duration-150
+               focus:outline-none focus:ring-2 focus:ring-cyan focus:ring-offset-2 focus:ring-offset-background
+               active:scale-[0.97]"
+        style="background-image: linear-gradient(135deg, #22d3ee, #a855f7);"
+      >
+        View Projects
+      </a>
+      <p class="mt-12 text-muted text-sm">{projects.length} project(s) loaded from content collection.</p>
+    </div>
+  </main>
+</BaseLayout>
