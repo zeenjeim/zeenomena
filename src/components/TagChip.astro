@@ -1,0 +1,39 @@
+---
+type Props = {
+  label: string;
+  variant?: 'tool' | 'free' | 'paid' | 'semi-paid';
+};
+const { label, variant = 'tool' } = Astro.props;
+---
+<span class:list={['chip', variant]}>{label}</span>
+
+<style>
+  .chip {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .tool {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #94a3b8;
+  }
+  .free {
+    background: var(--rarity-free-bg, #14532d);
+    border: 1px solid var(--rarity-free-border, #22c55e);
+    color: var(--rarity-free-text, #bbf7d0);
+  }
+  .semi-paid {
+    background: var(--rarity-semi-paid-bg, #1e3a5f);
+    border: 1px solid var(--rarity-semi-paid-border, #3b82f6);
+    color: var(--rarity-semi-paid-text, #bfdbfe);
+  }
+  .paid {
+    background: var(--rarity-paid-bg, #3b1f6e);
+    border: 1px solid var(--rarity-paid-border, #a855f7);
+    color: var(--rarity-paid-text, #e9d5ff);
+  }
+</style>

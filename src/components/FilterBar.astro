@@ -1,0 +1,77 @@
+---
+type Props = {
+  tags: string[];
+  allLabel?: string;
+};
+const { tags, allLabel = 'All' } = Astro.props;
+---
+<div class="filter-bar">
+  <button class="filter-chip active" data-filter="all">{allLabel}</button>
+  {tags.map((tag) => (
+    <button class="filter-chip" data-filter={tag}>{tag}</button>
+  ))}
+</div>
+
+<script>
+  const chips = document.querySelectorAll('[data-filter]');
+  const cards = document.querySelectorAll('[data-tags]');
+  const emptyState = document.getElementById('empty-state');
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const btn = chip as HTMLButtonElement;
+      const filter = btn.dataset.filter;
+      chips.forEach((c) => c.classList.remove('active'));
+      btn.classList.add('active');
+      cards.forEach((card) => {
+        const el = card as HTMLElement;
+        if (filter === 'all') {
+          el.style.display = '';
+        } else {
+          const cardTags = el.dataset.tags ? el.dataset.tags.split(',') : [];
+          el.style.display = cardTags.includes(filter ?? '') ? '' : 'none';
+        }
+      });
+      if (emptyState) {
+        const visible = [...cards].filter((c) => (c as HTMLElement).style.display !== 'none');
+        emptyState.style.display = visible.length === 0 ? '' : 'none';
+      }
+    });
+  });
+</script>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 24px;
+  }
+  .filter-chip {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #94a3b8;
+    cursor: pointer;
+    min-height: 44px;
+    transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+  }
+  .filter-chip:hover {
+    border-color: #22d3ee;
+    color: #f1f5f9;
+  }
+  .filter-chip.active {
+    border: 2px solid #22d3ee;
+    background: rgba(34,211,238,0.1);
+    color: #22d3ee;
+  }
+  .filter-chip:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+  }
+</style>
