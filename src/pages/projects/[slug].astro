@@ -1,0 +1,249 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagChip from '../../components/TagChip.astro';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) =>
+    data.status !== 'archived'
+  );
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+
+const tierLabel: Record<string, string> = {
+  free: 'Free',
+  paid: 'Paid',
+  'semi-paid': 'Semi-Paid',
+};
+---
+
+<BaseLayout title={`${data.title} — Zeenomena`} description={data.description}>
+  <main class="detail-page">
+    <!-- 1. Back link -->
+    <a href="/" class="back-link">&larr; All Projects</a>
+
+    <!-- 2. Header block -->
+    <div class="detail-header">
+      <div class="title-row">
+        <h1 class="detail-title">{data.title}</h1>
+        <TagChip label={tierLabel[data.priceTier] || data.priceTier} variant={data.priceTier} />
+      </div>
+      {data.tools && data.tools.length > 0 && (
+        <div class="tools-row">
+          {data.tools.map((tool) => (
+            <TagChip label={tool} variant="tool" />
+          ))}
+        </div>
+      )}
+    </div>
+
+    <!-- 3. Video embed (conditional) -->
+    <VideoEmbed url={data.videoUrl} />
+
+    <!-- 4. Description / Setup guide (markdown body) -->
+    <div class="detail-content">
+      <Content />
+    </div>
+
+    <!-- 5. Download / Access section -->
+    <div class="download-section">
+      {data.priceTier === 'free' ? (
+        <a
+          href={data.downloadUrl || data.githubUrl || '#'}
+          class="download-btn free-download"
+          download={data.downloadUrl ? '' : undefined}
+        >
+          Download for free
+        </a>
+      ) : (
+        <button class="download-btn locked-download" disabled aria-label="Buy to download — coming soon">
+          Buy to download
+        </button>
+      )}
+    </div>
+
+    <!-- Footer with Discord link (COMM-04) -->
+    <footer class="detail-footer">
+      <a href="/" class="back-link">&larr; All Projects</a>
+      <a href="#" class="discord-link" aria-label="Join Discord community">
+        Join the Discord
+      </a>
+    </footer>
+  </main>
+</BaseLayout>
+
+<style>
+  .detail-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 150ms ease;
+    margin-bottom: 24px;
+  }
+  .back-link:hover {
+    color: #f1f5f9;
+  }
+  .back-link:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+  }
+
+  .detail-header {
+    margin-bottom: 32px;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .detail-title {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #f1f5f9;
+    margin: 0;
+  }
+
+  .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .detail-content {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #f1f5f9;
+    margin-bottom: 48px;
+  }
+  .detail-content :global(h2) {
+    font-size: 28px;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 16px;
+  }
+  .detail-content :global(h3) {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 24px;
+    margin-bottom: 8px;
+  }
+  .detail-content :global(p) {
+    margin-bottom: 16px;
+  }
+  .detail-content :global(code) {
+    background: rgba(255,255,255,0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .detail-content :global(pre) {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin-bottom: 16px;
+  }
+  .detail-content :global(ul), .detail-content :global(ol) {
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+  .detail-content :global(li) {
+    margin-bottom: 4px;
+  }
+  .detail-content :global(a) {
+    color: #22d3ee;
+    text-decoration: underline;
+  }
+  .detail-content :global(a:hover) {
+    color: #67e8f9;
+  }
+
+  .download-section {
+    padding: 32px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .download-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 150ms ease;
+  }
+
+  .free-download {
+    background: #22d3ee;
+    color: #0a0f1e;
+    border: none;
+  }
+  .free-download:hover {
+    background: #67e8f9;
+  }
+  .free-download:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+  }
+
+  .locked-download {
+    background: transparent;
+    border: 2px solid #a855f7;
+    color: #e9d5ff;
+    cursor: default;
+    opacity: 0.7;
+  }
+
+  .detail-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .discord-link {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 2px solid #a855f7;
+    border-radius: 8px;
+    color: #a855f7;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 150ms ease;
+  }
+  .discord-link:hover {
+    background: rgba(168,85,247,0.1);
+  }
+  .discord-link:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+  }
+</style>
