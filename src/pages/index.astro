@@ -1,29 +1,138 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import FilterBar from '../components/FilterBar.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
-const projects = await getCollection('projects');
+
+const allProjects = await getCollection('projects', ({ data }) =>
+  data.status === 'live'
+);
+const projects = allProjects.sort((a, b) => {
+  const dateA = a.data.publishedAt?.getTime() ?? 0;
+  const dateB = b.data.publishedAt?.getTime() ?? 0;
+  return dateB - dateA;
+});
+const allTags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
 ---
-<BaseLayout>
-  <main class="min-h-screen flex items-center justify-center px-6">
-    <div class="text-center max-w-2xl mx-auto">
-      <h1
-        class="text-5xl font-semibold leading-tight mb-4 bg-clip-text text-transparent"
-        style="background-image: linear-gradient(135deg, #22d3ee, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
-      >
-        Building stuff with AI.
-      </h1>
-      <p class="text-muted text-lg mb-8">Stack verified. Content coming soon.</p>
-      <a
-        href="#"
-        class="inline-block px-6 py-3 rounded-lg font-semibold text-white
-               hover:opacity-90 transition-opacity duration-150
-               focus:outline-none focus:ring-2 focus:ring-cyan focus:ring-offset-2 focus:ring-offset-background
-               active:scale-[0.97]"
-        style="background-image: linear-gradient(135deg, #22d3ee, #a855f7);"
-      >
-        View Projects
-      </a>
-      <p class="mt-12 text-muted text-sm">{projects.length} project(s) loaded from content collection.</p>
-    </div>
+
+<BaseLayout title="Zeenomena — AI-Built Projects by Zee" description="Non-tech business guy building automated systems with AI. Browse projects, learn from them, or buy them.">
+  <main>
+    <HeroSection />
+
+    <section id="projects" class="projects-section">
+      <FilterBar tags={allTags} />
+
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <div data-tags={project.data.tags.join(',')}>
+            <ProjectCard project={project} />
+          </div>
+        ))}
+      </div>
+
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <p class="empty-heading">Nothing here yet.</p>
+        <p class="empty-body">Try a different tag, or browse all projects.</p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p class="footer-text">Built by Zee with AI tools. Building in public.</p>
+        <a href="#" class="discord-link" aria-label="Join Discord community">
+          Join the Discord
+        </a>
+      </div>
+    </footer>
   </main>
 </BaseLayout>
+
+<style>
+.projects-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.empty-heading {
+  font-size: 28px;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0;
+}
+
+.empty-body {
+  font-size: 16px;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+.site-footer {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 32px 24px;
+  margin-top: 64px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-text {
+  font-size: 14px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.discord-link {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 2px solid #a855f7;
+  border-radius: 8px;
+  color: #a855f7;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 150ms ease;
+}
+
+.discord-link:hover {
+  background: rgba(168,85,247,0.1);
+}
+
+.discord-link:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+</style>
