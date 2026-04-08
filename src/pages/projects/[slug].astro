@@ -70,12 +70,8 @@ const tierLabel: Record<string, string> = {
       )}
     </div>
 
-    <!-- Footer with Discord link (COMM-04) -->
     <footer class="detail-footer">
       <a href="/" class="back-link">&larr; All Projects</a>
-      <a href="#" class="discord-link" aria-label="Join Discord community">
-        Join the Discord
-      </a>
     </footer>
   </main>
 </BaseLayout>
@@ -218,32 +214,8 @@ const tierLabel: Record<string, string> = {
   }
 
   .detail-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-top: 48px;
     padding-top: 32px;
     border-top: 1px solid rgba(255,255,255,0.1);
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .discord-link {
-    display: inline-block;
-    padding: 8px 16px;
-    border: 2px solid #a855f7;
-    border-radius: 8px;
-    color: #a855f7;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background 150ms ease;
-  }
-  .discord-link:hover {
-    background: rgba(168,85,247,0.1);
-  }
-  .discord-link:focus-visible {
-    outline: 2px solid #22d3ee;
-    outline-offset: 2px;
   }
 </style>
