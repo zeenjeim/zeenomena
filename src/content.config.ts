@@ -14,6 +14,7 @@ const projects = defineCollection({
     tools: z.array(z.string()).optional(),
     videoUrl: z.string().url().optional(),
     githubUrl: z.string().url().optional(),
+    downloadUrl: z.string().url().optional(),
     publishedAt: z.coerce.date().optional(),
   }),
 });

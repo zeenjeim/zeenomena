@@ -10,3 +10,21 @@
   --color-destructive: #ef4444;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
+
+:root {
+  /* Rarity system — Balatro price tier colors */
+  --rarity-free-bg: #14532d;
+  --rarity-free-border: #22c55e;
+  --rarity-free-text: #bbf7d0;
+  --rarity-free-glow: rgba(34,197,94,0.3);
+
+  --rarity-semi-paid-bg: #1e3a5f;
+  --rarity-semi-paid-border: #3b82f6;
+  --rarity-semi-paid-text: #bfdbfe;
+  --rarity-semi-paid-glow: rgba(59,130,246,0.3);
+
+  --rarity-paid-bg: #3b1f6e;
+  --rarity-paid-border: #a855f7;
+  --rarity-paid-text: #e9d5ff;
+  --rarity-paid-glow: rgba(168,85,247,0.4);
+}
