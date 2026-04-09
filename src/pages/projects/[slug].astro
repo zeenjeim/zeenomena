@@ -26,196 +26,510 @@ const tierLabel: Record<string, string> = {
 ---
 
 <BaseLayout title={`${data.title} — Zeenomena`} description={data.description}>
-  <main class="detail-page">
-    <!-- 1. Back link -->
-    <a href="/" class="back-link">&larr; All Projects</a>
+  <div class="project-wrapper">
 
-    <!-- 2. Header block -->
-    <div class="detail-header">
-      <div class="title-row">
-        <h1 class="detail-title">{data.title}</h1>
-        <TagChip label={tierLabel[data.priceTier] || data.priceTier} variant={data.priceTier} />
-      </div>
-      {data.tools && data.tools.length > 0 && (
-        <div class="tools-row">
-          {data.tools.map((tool) => (
-            <TagChip label={tool} variant="tool" />
-          ))}
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="site-nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-brand">ZEENOMENA</a>
+        <div class="nav-links">
+          <a href="/#projects" class="nav-link">ARSENAL</a>
+          <a href="mailto:hello@zeenomena.com" class="nav-link">CONTACT</a>
         </div>
-      )}
-    </div>
+      </div>
+    </nav>
 
-    <!-- 3. Video embed (conditional) -->
-    <VideoEmbed url={data.videoUrl} />
+    <!-- ============ PROJECT HERO ============ -->
+    <section class="project-hero noise-bg">
+      <div class="hero-slash-right" aria-hidden="true"></div>
+      <div class="hero-slash-left" aria-hidden="true"></div>
 
-    <!-- 4. Description / Setup guide (markdown body) -->
-    <div class="detail-content">
-      <Content />
-    </div>
-
-    <!-- 5. Download / Access section -->
-    <div class="download-section">
-      {data.priceTier === 'free' ? (
-        <a
-          href={data.downloadUrl || data.githubUrl || '#'}
-          class="download-btn free-download"
-          download={data.downloadUrl ? '' : undefined}
-        >
-          Download for free
+      <div class="hero-inner">
+        <a href="/" class="back-link">
+          <span class="back-arrow">&larr;</span> BACK TO LOOT
         </a>
-      ) : (
-        <button class="download-btn locked-download" disabled aria-label="Buy to download — coming soon">
-          Buy to download
-        </button>
-      )}
-    </div>
 
-    <footer class="detail-footer">
-      <a href="/" class="back-link">&larr; All Projects</a>
+        <div class="title-block">
+          <h1 class="project-title glitch-text">{data.title}</h1>
+          <div class="title-meta">
+            <TagChip label={tierLabel[data.priceTier] || data.priceTier} variant={data.priceTier} />
+            {data.publishedAt && (
+              <span class="meta-date">{data.publishedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}</span>
+            )}
+          </div>
+        </div>
+
+        <p class="project-desc">{data.description}</p>
+
+        {data.tools && data.tools.length > 0 && (
+          <div class="tools-strip">
+            <span class="strip-label">LOADOUT</span>
+            <div class="tools-list">
+              {data.tools.map((tool) => (
+                <span class="tool-chip">{tool}</span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- ============ VIDEO (conditional) ============ -->
+    {data.videoUrl && (
+      <section class="video-section">
+        <VideoEmbed url={data.videoUrl} />
+      </section>
+    )}
+
+    <!-- ============ CONTENT ============ -->
+    <section class="content-section">
+      <div class="content-inner">
+        <Content />
+      </div>
+    </section>
+
+    <!-- ============ DOWNLOAD / ACCESS ============ -->
+    <section class="download-section">
+      <div class="download-inner">
+        <span class="download-label">ACCESS</span>
+        {data.priceTier === 'free' ? (
+          <a
+            href={data.downloadUrl || data.githubUrl || '#'}
+            class="download-btn download-free hard-shadow-cyan"
+            download={data.downloadUrl ? '' : undefined}
+          >
+            DOWNLOAD FREE
+          </a>
+        ) : data.priceTier === 'semi-paid' ? (
+          <div class="download-split">
+            <a href="#" class="download-btn download-free hard-shadow-cyan">
+              FREE GUIDE
+            </a>
+            <button class="download-btn download-locked hard-shadow-purple" disabled>
+              FULL PACKAGE — COMING SOON
+            </button>
+          </div>
+        ) : (
+          <button class="download-btn download-locked hard-shadow-purple" disabled>
+            BUY TO DOWNLOAD — COMING SOON
+          </button>
+        )}
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="project-footer">
+      <div class="footer-gradient-top" aria-hidden="true"></div>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-logo">ZEENOMENA</span>
+          <p class="footer-copy">Built by Zee. Powered by Claude. No regrets.</p>
+        </div>
+        <div class="footer-status">
+          <div class="status-dot"></div>
+          <span class="status-text">SYSTEM ONLINE</span>
+        </div>
+      </div>
     </footer>
-  </main>
+
+  </div>
 </BaseLayout>
 
 <style>
-  .detail-page {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 32px 24px 64px;
+  .project-wrapper {
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 
-  .back-link {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #94a3b8;
+  /* ── NAV ── */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #0a0f1e;
+    border-bottom: 4px solid transparent;
+    border-image: linear-gradient(90deg, #22d3ee, #a855f7) 1;
+    transform: skewY(-0.5deg);
+    box-shadow: 0 8px 0 rgba(34, 211, 238, 0.15);
+  }
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    transform: skewY(0.5deg);
+  }
+  .nav-brand {
+    font-family: var(--font-headline, 'Epilogue', sans-serif);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 24px;
+    color: #22d3ee;
     text-decoration: none;
-    transition: color 150ms ease;
-    margin-bottom: 24px;
+    letter-spacing: -0.04em;
+    filter: drop-shadow(3px 3px 0 #a855f7);
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-link {
+    font-family: var(--font-headline, 'Epilogue', sans-serif);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+    color: rgba(241, 245, 249, 0.6);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 75ms;
+  }
+  .nav-link:hover {
+    color: #f1f5f9;
+    transform: skewX(-12deg);
+    background: linear-gradient(135deg, #22d3ee, #a855f7);
+    padding: 4px 8px;
+    margin: -4px -8px;
+  }
+
+  /* ── PROJECT HERO ── */
+  .project-hero {
+    position: relative;
+    padding: 120px 32px 64px;
+    overflow: hidden;
+  }
+  .hero-slash-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(168, 85, 247, 0.08);
+    transform: skewX(-15deg) translateX(25%);
+    z-index: 0;
+  }
+  .hero-slash-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30%;
+    height: 50%;
+    background: rgba(34, 211, 238, 0.06);
+    transform: skewX(25deg) translateX(-20%);
+    z-index: 0;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-label, 'Space Grotesk', monospace);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(241, 245, 249, 0.5);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: all 150ms;
   }
   .back-link:hover {
-    color: #f1f5f9;
+    color: #22d3ee;
+    transform: translateX(-4px);
   }
-  .back-link:focus-visible {
-    outline: 2px solid #22d3ee;
-    outline-offset: 2px;
+  .back-arrow { font-size: 18px; }
+
+  /* ── TITLE ── */
+  .title-block { margin-bottom: 24px; }
+  .project-title {
+    font-family: var(--font-headline, 'Epilogue', sans-serif);
+    font-weight: 900;
+    font-style: italic;
+    font-size: clamp(36px, 6vw, 64px);
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: #f1f5f9;
+    margin: 0 0 16px;
+  }
+  .title-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .meta-date {
+    font-family: var(--font-label, 'Space Grotesk', monospace);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(241, 245, 249, 0.4);
+    text-transform: uppercase;
   }
 
-  .detail-header {
+  /* ── DESC ── */
+  .project-desc {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(241, 245, 249, 0.8);
+    max-width: 640px;
     margin-bottom: 32px;
   }
 
-  .title-row {
+  /* ── TOOLS STRIP ── */
+  .tools-strip {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
+    padding: 16px 0;
+    border-top: 2px solid rgba(255,255,255,0.06);
+  }
+  .strip-label {
+    font-family: var(--font-label, 'Space Grotesk', monospace);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: rgba(241, 245, 249, 0.3);
+    text-transform: uppercase;
+  }
+  .tools-list { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tool-chip {
+    font-family: var(--font-label, 'Space Grotesk', monospace);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #22d3ee;
+    text-transform: uppercase;
+    transition: all 150ms;
+  }
+  .tool-chip:hover {
+    background: rgba(34, 211, 238, 0.1);
+    border-color: rgba(34, 211, 238, 0.3);
+    transform: translateY(-2px);
   }
 
-  .detail-title {
-    font-size: 28px;
-    font-weight: 600;
-    line-height: 1.2;
-    color: #f1f5f9;
-    margin: 0;
+  /* ── VIDEO ── */
+  .video-section {
+    padding: 0 32px 48px;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
-  .tools-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 16px;
+  /* ── CONTENT ── */
+  .content-section {
+    padding: 0 32px 48px;
   }
-
-  .detail-content {
+  .content-inner {
+    max-width: 900px;
+    margin: 0 auto;
     font-size: 16px;
-    line-height: 1.5;
-    color: #f1f5f9;
-    margin-bottom: 48px;
+    line-height: 1.7;
+    color: rgba(241, 245, 249, 0.9);
   }
-  .detail-content :global(h2) {
+  .content-inner :global(h2) {
+    font-family: var(--font-headline, 'Epilogue', sans-serif);
+    font-weight: 900;
+    font-style: italic;
     font-size: 28px;
-    font-weight: 600;
-    margin-top: 32px;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #f1f5f9;
+    margin-top: 48px;
     margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid rgba(34, 211, 238, 0.3);
   }
-  .detail-content :global(h3) {
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 24px;
+  .content-inner :global(h3) {
+    font-family: var(--font-headline, 'Epilogue', sans-serif);
+    font-weight: 900;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #a855f7;
+    margin-top: 32px;
     margin-bottom: 8px;
   }
-  .detail-content :global(p) {
-    margin-bottom: 16px;
-  }
-  .detail-content :global(code) {
-    background: rgba(255,255,255,0.06);
-    padding: 2px 6px;
-    border-radius: 4px;
+  .content-inner :global(p) { margin-bottom: 16px; }
+  .content-inner :global(strong) { color: #f1f5f9; }
+  .content-inner :global(code) {
+    background: rgba(255,255,255,0.08);
+    padding: 2px 8px;
+    font-family: var(--font-label, 'Space Grotesk', monospace);
     font-size: 14px;
+    color: #22d3ee;
   }
-  .detail-content :global(pre) {
+  .content-inner :global(pre) {
     background: #111827;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 16px;
+    border-left: 4px solid #a855f7;
+    padding: 20px;
     overflow-x: auto;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
   }
-  .detail-content :global(ul), .detail-content :global(ol) {
+  .content-inner :global(ul), .content-inner :global(ol) {
     padding-left: 24px;
     margin-bottom: 16px;
   }
-  .detail-content :global(li) {
-    margin-bottom: 4px;
-  }
-  .detail-content :global(a) {
+  .content-inner :global(li) { margin-bottom: 6px; }
+  .content-inner :global(a) {
     color: #22d3ee;
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
-  .detail-content :global(a:hover) {
-    color: #67e8f9;
+  .content-inner :global(a:hover) { color: #67e8f9; }
+  .content-inner :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+  .content-inner :global(th) {
+    font-family: var(--font-label, 'Space Grotesk', monospace);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #22d3ee;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid rgba(34, 211, 238, 0.3);
+    background: rgba(255,255,255,0.03);
+  }
+  .content-inner :global(td) {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    vertical-align: top;
+  }
+  .content-inner :global(tr:hover td) {
+    background: rgba(34, 211, 238, 0.03);
   }
 
+  /* ── DOWNLOAD ── */
   .download-section {
-    padding: 32px 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 48px 32px;
+    background: rgba(255,255,255,0.02);
+    border-top: 4px solid transparent;
+    border-image: linear-gradient(90deg, #22d3ee, #a855f7) 1;
   }
-
+  .download-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .download-label {
+    display: block;
+    font-family: var(--font-label, 'Space Grotesk', monospace);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: rgba(241, 245, 249, 0.4);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .download-split { display: flex; gap: 16px; flex-wrap: wrap; }
   .download-btn {
     display: inline-block;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 16px 32px;
+    font-family: var(--font-headline, 'Epilogue', sans-serif);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     text-decoration: none;
     cursor: pointer;
-    transition: background 150ms ease;
-  }
-
-  .free-download {
-    background: #22d3ee;
-    color: #0a0f1e;
     border: none;
+    transition: all 150ms;
   }
-  .free-download:hover {
-    background: #67e8f9;
+  .download-btn:hover { transform: skewX(-6deg) translateY(-2px); }
+  .download-btn:active { transform: skewX(-6deg) translateY(2px); }
+  .download-free {
+    background: linear-gradient(135deg, #22d3ee, #a855f7);
+    color: #0a0f1e;
   }
-  .free-download:focus-visible {
-    outline: 2px solid #22d3ee;
-    outline-offset: 2px;
-  }
-
-  .locked-download {
+  .download-locked {
     background: transparent;
-    border: 2px solid #a855f7;
+    border: 3px solid #a855f7;
     color: #e9d5ff;
     cursor: default;
-    opacity: 0.7;
+    opacity: 0.6;
+  }
+  .download-locked:hover { transform: none; }
+
+  /* ── FOOTER ── */
+  .project-footer {
+    position: relative;
+    padding: 48px 32px;
+    background: #0a0f1e;
+  }
+  .footer-gradient-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #22d3ee, transparent, #a855f7);
+  }
+  .footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: var(--font-headline, 'Epilogue', sans-serif);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 18px;
+    color: #22d3ee;
+    filter: drop-shadow(2px 2px 0 #a855f7);
+  }
+  .footer-copy {
+    font-family: var(--font-label, 'Space Grotesk', monospace);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: rgba(241, 245, 249, 0.3);
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .footer-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: #22d3ee;
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+  .status-text {
+    font-family: var(--font-label, 'Space Grotesk', monospace);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #22d3ee;
+    text-transform: uppercase;
   }
 
-  .detail-footer {
-    margin-top: 48px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .project-hero { padding: 100px 16px 48px; }
+    .project-title { font-size: 36px; }
+    .nav-links { gap: 16px; }
+    .nav-inner { padding: 12px 16px; }
+    .content-section { padding: 0 16px 48px; }
+    .download-section { padding: 32px 16px; }
+    .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    .download-split { flex-direction: column; }
   }
 </style>
