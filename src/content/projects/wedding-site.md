@@ -8,4 +8,4 @@ tools: ["HTML", "CSS", "JavaScript"]
 publishedAt: 2026-04-08
 ---
 
-Personal wedding website built from scratch. No React, no Astro, no build tools. Vanilla HTML, CSS, and JavaScript. Photo gallery, event details, everything a wedding site needs. Proof that you can ship a real website knowing nothing about web development.
+Personal wedding website built from scratch. No React, no Astro, no build tools. Vanilla HTML, CSS, and JavaScript. Photo gallery, event details, everything a wedding site needs. Proof that you can ship a website knowing nothing about web development.

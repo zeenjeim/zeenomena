@@ -25,7 +25,7 @@ You need to do the manual stuff yourself from step 1 to step 7 (installing Node,
 |------|-------------|------|
 | Context Mode | Keeps your context window clean. Runs commands in sandbox, only summaries enter your chat. | [github.com/bsmith/context-mode](https://github.com/bsmith/context-mode) |
 | Firecrawl | Scrapes websites, crawls pages, extracts structured data. Feed any URL to Claude. | [github.com/mendableai/firecrawl](https://github.com/mendableai/firecrawl) |
-| Playwright | Browser automation. Navigate, screenshot, click, fill forms. Claude controls a real browser. | [github.com/anthropics/claude-code](https://github.com/anthropics/claude-code) |
+| Playwright | Browser automation. Navigate, screenshot, click, fill forms. Claude controls an actual browser. | [github.com/anthropics/claude-code](https://github.com/anthropics/claude-code) |
 | Stitch | Design system management. Create and apply design systems to your projects. | [github.com/google/stitch](https://github.com/google/stitch) |
 
 ### Plugins
