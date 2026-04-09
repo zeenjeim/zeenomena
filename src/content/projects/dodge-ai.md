@@ -4,8 +4,22 @@ description: "Bullet hell browser game. The AI watches how you dodge. Then it ad
 tags: ["Games", "AI", "JavaScript"]
 priceTier: "semi-paid"
 status: "live"
-tools: ["JavaScript", "HTML Canvas", "Node.js", "Fly.io", "Google Analytics"]
+tools: ["JavaScript", "HTML Canvas", "Node.js", "Supabase", "Google Analytics"]
 publishedAt: 2026-04-08
 ---
 
-Free to play at dodge-ai.com. Built entirely in the browser using HTML Canvas. The AI studies your dodge patterns and adjusts bullet trajectories in real time. No framework, no build step, just vanilla JS. Source code and architecture doc available as paid extras.
+ANNNDDDD my first ever game. Dodge the bullets, power up with upgrades, join upgrade cards together to form evolution cards, and it gets harder the longer you play. Come on play it, I dare you, I double dare you motherf***er!
+
+## What's Free
+
+- How the game was created (the full story, rules, constraints)
+- Game mechanics breakdown
+- Supabase setup for the database and leaderboard
+- The simple stuff that gets you started building your own
+
+## What's Paid
+
+- The full .md architecture file (every system, every pattern, every decision)
+- Complete source code (JS, HTML, CSS, server)
+- Card evolution system logic
+- AI adaptation algorithm breakdown
