@@ -6,7 +6,7 @@ priceTier: "free"
 status: "live"
 tools: ["Claude Code", "MCP Servers", "Superpowers", "Context Mode", "Claude Mem", "Firecrawl", "Playwright", "GSD Workflow"]
 publishedAt: 2026-04-08
-downloadUrl: "/downloads/claude-code-setup-guide.md"
+downloadUrl: "https://zeenomena-site.netlify.app/downloads/claude-code-setup-guide.md"
 ---
 
 Downloading Claude Code was a pain in the ass. It took me a full day to get it set up properly. 6 months later, I've upgraded it with the most useful MCPs, plugins, tools, and workflows out there. Below is an MD file that contains a step by step guide to get an optimal Claude Code setup in minutes rather than 6 months.

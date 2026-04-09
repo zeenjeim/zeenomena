@@ -45,30 +45,35 @@ const { tags, allLabel = 'All' } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    padding-bottom: 24px;
+    padding-bottom: 28px;
   }
   .filter-chip {
     display: inline-block;
     padding: 8px 16px;
-    border-radius: 9999px;
-    font-size: 14px;
-    font-weight: 600;
+    border-radius: 0;
+    font-family: var(--font-label, 'Space Grotesk', sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
     line-height: 1.4;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #94a3b8;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(241, 245, 249, 0.5);
     cursor: pointer;
-    min-height: 44px;
-    transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
+    min-height: 40px;
+    transition: border-color 100ms ease, color 100ms ease, background 100ms ease, transform 75ms ease;
   }
   .filter-chip:hover {
-    border-color: #22d3ee;
+    border-color: rgba(34, 211, 238, 0.6);
     color: #f1f5f9;
+    transform: skewX(-4deg);
   }
   .filter-chip.active {
     border: 2px solid #22d3ee;
     background: rgba(34,211,238,0.1);
     color: #22d3ee;
+    transform: skewX(-4deg);
   }
   .filter-chip:focus-visible {
     outline: 2px solid #22d3ee;

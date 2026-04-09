@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSection from '../components/HeroSection.astro';
 import FilterBar from '../components/FilterBar.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
@@ -17,45 +16,762 @@ const allTags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
 ---
 
 <BaseLayout title="Zeenomena — AI-Built Projects by Zee" description="Non-tech business guy building automated systems with AI. Browse projects, learn from them, or buy them.">
-  <main>
-    <HeroSection />
+  <div class="site-wrapper">
 
-    <section id="projects" class="projects-section">
-      <FilterBar tags={allTags} />
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="site-nav" id="site-nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-brand">ZEENOMENA</a>
+        <div class="nav-links">
+          <a href="#projects" class="nav-link">ARSENAL</a>
+          <a href="#briefing" class="nav-link">INTEL</a>
+          <a href="mailto:hello@zeenomena.com" class="nav-link">CONTACT</a>
+        </div>
+      </div>
+    </nav>
 
-      <div class="projects-grid">
-        {projects.map((project) => (
-          <div data-tags={project.data.tags.join(',')}>
-            <ProjectCard project={project} />
+    <!-- ============ HERO ============ -->
+    <section class="hero noise-bg">
+      <!-- Background diagonal slashes -->
+      <div class="hero-slash-right" aria-hidden="true"></div>
+      <div class="hero-slash-left" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <div class="hero-text-col">
+          <p class="hero-eyebrow">
+            <span class="eyebrow-dot"></span>
+            SYSTEM ONLINE — AWS BDM BUILDING IN PUBLIC
+          </p>
+
+          <h1 class="hero-headline glitch-text-lg animate-glitch">
+            I DO THE IDEAS.<br />
+            <span class="headline-accent">AI DOES THE</span><br />
+            BUILDING.
+          </h1>
+
+          <p class="hero-body">
+            Non-tech business guy. AI tools. Real projects. No excuses.
+            Yeah, Claude built this. Got a problem?
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#projects" class="cta-primary hard-shadow-cyan">
+              VIEW ARSENAL
+            </a>
+            <a href="#briefing" class="cta-secondary">
+              <span class="cta-secondary-fill"></span>
+              <span class="cta-secondary-text">DO NOT CLICK</span>
+            </a>
           </div>
-        ))}
+        </div>
+
+        <div class="hero-stats-col">
+          <div class="stat-card hard-shadow-dark">
+            <span class="stat-label">PROJECTS SHIPPED</span>
+            <span class="stat-number gradient-text-cyan-purple">{projects.length}</span>
+          </div>
+          <div class="stat-card stat-card--tall hard-shadow-purple">
+            <span class="stat-label">STACK</span>
+            <div class="stat-tags">
+              <span class="stat-tag">TypeScript</span>
+              <span class="stat-tag">Astro</span>
+              <span class="stat-tag">Claude API</span>
+              <span class="stat-tag">n8n</span>
+              <span class="stat-tag">AWS</span>
+            </div>
+          </div>
+          <div class="stat-card hard-shadow-dark">
+            <span class="stat-label">EXPERIENCE</span>
+            <span class="stat-number gradient-text-cyan-purple">0</span>
+            <span class="stat-sublabel">lines of code before AI</span>
+          </div>
+        </div>
       </div>
 
-      <div id="empty-state" class="empty-state" style="display: none;">
-        <p class="empty-heading">Nothing here yet.</p>
-        <p class="empty-body">Try a different tag, or browse all projects.</p>
+      <!-- Scroll indicator -->
+      <div class="scroll-hint" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">SCROLL</span>
       </div>
     </section>
 
-    <footer class="site-footer">
-      <div class="footer-content">
-        <p class="footer-text">Built by Zee with AI tools. Building in public.</p>
+    <!-- ============ MISSION BRIEFING (Bento) ============ -->
+    <section id="briefing" class="briefing action-slasher">
+      <div class="briefing-inner">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title gradient-text-cyan-purple">MISSION BRIEFING</h2>
+            <div class="section-underbar"></div>
+          </div>
+          <p class="section-meta">STATUS: CLASSIFIED / MAXIMUM EFFORT</p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Card: Origin Story -->
+          <div class="bento-card bento-card--wide bento-card--cyan hard-shadow-dark">
+            <span class="bento-label">OBJECTIVE 01</span>
+            <h3 class="bento-title">Who the hell is Zee?</h3>
+            <p class="bento-body">
+              BDM at AWS. Zero traditional coding background.
+              Started using AI tools to automate my own sales workflows — territory analysis, account research, market tracking.
+              Now I'm building and shipping real products that other people actually use.
+            </p>
+            <div class="bento-slash" aria-hidden="true"></div>
+          </div>
+
+          <!-- Card: Method -->
+          <div class="bento-card bento-card--purple hard-shadow-dark">
+            <span class="bento-label">OBJECTIVE 02</span>
+            <h3 class="bento-title">The Method</h3>
+            <p class="bento-body">
+              Describe the problem. Design the solution. Let AI write the code. Ship it.
+              Repeat until something sticks.
+            </p>
+          </div>
+
+          <!-- Card: Stack stat -->
+          <div class="bento-card bento-card--stat hard-shadow-dark">
+            <span class="bento-label">INTEL</span>
+            <span class="bento-big-stat gradient-text-cyan-purple">100%</span>
+            <p class="bento-body">AI-assisted. Every line. No shame.</p>
+          </div>
+
+          <!-- Card: Mission -->
+          <div class="bento-card bento-card--wide bento-card--dark hard-shadow-dark">
+            <span class="bento-label">DIRECTIVE</span>
+            <h3 class="bento-title">Why this exists</h3>
+            <p class="bento-body">
+              Proof that domain expertise + AI tools beats "10 years of coding experience" every single time.
+              Every project here started with a real problem I had.
+            </p>
+            <div class="bento-tags">
+              <span class="bento-tech-tag">Sales Automation</span>
+              <span class="bento-tech-tag">Trading Bots</span>
+              <span class="bento-tech-tag">Data Pipelines</span>
+              <span class="bento-tech-tag">AI Tooling</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
+
+    <!-- ============ PROJECT ARSENAL ============ -->
+    <section id="projects" class="arsenal">
+      <div class="arsenal-inner">
+        <div class="section-header section-header--left">
+          <div>
+            <h2 class="section-title gradient-text-cyan-purple">THE ARSENAL</h2>
+            <div class="section-underbar"></div>
+          </div>
+          <p class="section-meta">{projects.length} ACTIVE BUILDS</p>
+        </div>
+
+        <FilterBar tags={allTags} />
+
+        <div class="projects-grid">
+          {projects.map((project) => (
+            <div data-tags={project.data.tags.join(',')}>
+              <ProjectCard project={project} />
+            </div>
+          ))}
+        </div>
+
+        <div id="empty-state" class="empty-state" style="display: none;">
+          <p class="empty-heading">No targets match.</p>
+          <p class="empty-body">Try a different tag or clear the filter.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA STRIP ============ -->
+    <section class="cta-strip diagonal-slash-mask">
+      <div class="cta-strip-inner">
+        <h2 class="cta-strip-headline">STILL HERE?</h2>
+        <p class="cta-strip-body">
+          Good. That means you get it. The future belongs to people who build — not people who wait for permission.
+        </p>
+        <a href="mailto:hello@zeenomena.com" class="cta-strip-btn hard-shadow-dark">
+          GET IN TOUCH →
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="footer-name">ZEENOMENA</span>
+          <span class="footer-tagline">Maximum Effort. Zero Excuses.</span>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/zeenomena" class="footer-link" target="_blank" rel="noopener">GITHUB</a>
+          <a href="https://linkedin.com/in/zeenomena" class="footer-link" target="_blank" rel="noopener">LINKEDIN</a>
+          <a href="mailto:hello@zeenomena.com" class="footer-link">EMAIL</a>
+        </div>
+        <div class="footer-status">
+          <span class="status-dot animate-status-pulse"></span>
+          <span class="status-text font-label">SYSTEM ONLINE</span>
+        </div>
+      </div>
+      <p class="footer-credit">Built by Zee with Claude. Yeah, AI wrote this too. The audacity.</p>
     </footer>
-  </main>
+
+  </div>
 </BaseLayout>
 
 <style>
-.projects-section {
+/* ============================================
+   SITE WRAPPER
+   ============================================ */
+.site-wrapper {
+  background-color: #0d1117;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(13, 17, 23, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(135deg, #22d3ee, #a855f7) 1;
+  transform: skewY(-0.5deg);
+  box-shadow: 0 4px 24px rgba(34, 211, 238, 0.15);
+}
+
+.nav-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px 64px;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: skewY(0.5deg);
+}
+
+.nav-brand {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: -0.04em;
+  color: #22d3ee;
+  text-decoration: none;
+  text-shadow: 3px 3px 0px rgba(168, 85, 247, 0.5);
+  text-transform: uppercase;
+  transition: text-shadow 150ms ease;
+}
+.nav-brand:hover {
+  text-shadow: 4px 4px 0px rgba(168, 85, 247, 0.8), -1px -1px 0px rgba(34, 211, 238, 0.4);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.6);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: all 75ms ease;
+}
+.nav-link:hover {
+  color: #f1f5f9;
+  border-bottom-color: #22d3ee;
+  transform: skewX(-8deg);
+}
+.nav-link:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 96px;
+  background-color: #0d1117;
+  overflow: hidden;
+}
+
+.hero-slash-right {
+  position: absolute;
+  top: 0;
+  right: -80px;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.06), rgba(168, 85, 247, 0.06));
+  transform: skewX(-12deg);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-slash-left {
+  position: absolute;
+  bottom: 0;
+  left: -60px;
+  width: 30%;
+  height: 50%;
+  background: rgba(168, 85, 247, 0.05);
+  transform: skewX(20deg);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 24px 120px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    padding: 80px 24px 140px;
+  }
+}
+
+.hero-eyebrow {
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #22d3ee;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  opacity: 0.9;
+}
+
+.eyebrow-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #22d3ee;
+  animation: status-pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.hero-headline {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(52px, 8vw, 96px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+  margin: 0 0 24px;
+}
+
+.headline-accent {
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-body {
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(241, 245, 249, 0.75);
+  margin: 0 0 40px;
+  max-width: 480px;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+
+.cta-primary {
+  display: inline-block;
+  padding: 16px 36px;
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  color: #0d1117;
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 75ms ease, box-shadow 75ms ease;
+}
+.cta-primary:hover {
+  transform: skewX(-6deg);
+  box-shadow: 12px 12px 0px 0px rgba(34, 211, 238, 0.5);
+}
+.cta-primary:active {
+  transform: translate(4px, 4px) skewX(-6deg);
+  box-shadow: 4px 4px 0px 0px rgba(34, 211, 238, 0.5);
+}
+.cta-primary:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+
+.cta-secondary {
+  position: relative;
+  display: inline-block;
+  padding: 16px 36px;
+  border: 3px solid #a855f7;
+  color: #a855f7;
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  overflow: hidden;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+.cta-secondary-fill {
+  position: absolute;
+  inset: 0;
+  background: #a855f7;
+  transform: translateY(100%);
+  transition: transform 150ms ease;
+  z-index: 0;
+}
+.cta-secondary-text {
+  position: relative;
+  z-index: 1;
+}
+.cta-secondary:hover .cta-secondary-fill {
+  transform: translateY(0);
+}
+.cta-secondary:hover {
+  color: #0d1117;
+}
+.cta-secondary:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+}
+
+/* Stats column */
+.hero-stats-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-card {
+  background: #111827;
+  border-left: 4px solid #22d3ee;
+  padding: 20px 24px;
+  transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.stat-card:hover {
+  transform: translateX(4px);
+}
+.stat-card--tall {
+  border-left-color: #a855f7;
+}
+
+.stat-label {
+  display: block;
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.4);
+  margin-bottom: 8px;
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.stat-sublabel {
+  display: block;
+  font-size: 12px;
+  color: rgba(241, 245, 249, 0.5);
+  margin-top: 4px;
+}
+
+.stat-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.stat-tag {
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #d8b4fe;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+}
+
+.scroll-line {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, #22d3ee);
+}
+
+.scroll-text {
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: #22d3ee;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   MISSION BRIEFING
+   ============================================ */
+.briefing {
+  background: #111827;
+  padding: 160px 24px;
+}
+
+.briefing-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-title {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.section-underbar {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #22d3ee, #a855f7);
+  transform: skewX(-12deg);
+}
+
+.section-meta {
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.35);
+}
+
+/* Bento grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.bento-card {
+  background: #1a2235;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.bento-card:hover {
+  transform: translateY(-4px);
+}
+
+.bento-card--wide {
+  grid-column: span 1;
+}
+
+@media (min-width: 768px) {
+  .bento-card--wide {
+    grid-column: span 2;
+  }
+}
+
+.bento-card--cyan {
+  border-left: 6px solid #22d3ee;
+}
+
+.bento-card--purple {
+  border-left: 6px solid #a855f7;
+}
+
+.bento-card--stat {
+  border-left: 6px solid rgba(34, 211, 238, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bento-card--dark {
+  border-left: 6px solid rgba(168, 85, 247, 0.5);
+  background: #0d1117;
+}
+
+.bento-label {
+  display: block;
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.35);
+  margin-bottom: 12px;
+}
+
+.bento-title {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 24px;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+  margin: 0 0 12px;
+}
+
+.bento-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(241, 245, 249, 0.65);
+  margin: 0;
+}
+
+.bento-big-stat {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 64px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.bento-slash {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.1));
+  transform: rotate(45deg);
+}
+
+.bento-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.bento-tech-tag {
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 12px;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  color: #67e8f9;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   ARSENAL / PROJECTS
+   ============================================ */
+.arsenal {
+  background: #0d1117;
+  padding: 96px 24px 80px;
+}
+
+.arsenal-inner {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
+  margin-top: 8px;
 }
 
 @media (min-width: 768px) {
@@ -74,12 +790,16 @@ const allTags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
 
 .empty-state {
   text-align: center;
-  padding: 48px 24px;
+  padding: 64px 24px;
 }
 
 .empty-heading {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
   font-size: 28px;
-  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   color: #f1f5f9;
   margin: 0;
 }
@@ -90,22 +810,170 @@ const allTags = [...new Set(projects.flatMap((p) => p.data.tags))].sort();
   margin-top: 8px;
 }
 
-.site-footer {
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding: 32px 24px;
-  margin-top: 64px;
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
+/* ============================================
+   CTA STRIP
+   ============================================ */
+.cta-strip {
+  background: #111827;
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(135deg, #22d3ee, #a855f7) 1;
+  padding: 100px 24px 80px;
   text-align: center;
 }
 
-.footer-text {
-  font-size: 14px;
-  color: #94a3b8;
-  margin: 0;
+.cta-strip-inner {
+  max-width: 720px;
+  margin: 0 auto;
 }
 
+.cta-strip-headline {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(48px, 8vw, 96px);
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-strip-body {
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(241, 245, 249, 0.7);
+  margin: 0 0 40px;
+}
+
+.cta-strip-btn {
+  display: inline-block;
+  padding: 18px 48px;
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  color: #0d1117;
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 75ms ease, box-shadow 75ms ease;
+}
+.cta-strip-btn:hover {
+  transform: skewX(-6deg) translate(-2px, -2px);
+  box-shadow: 14px 14px 0px 0px rgba(0, 0, 0, 0.8);
+}
+.cta-strip-btn:active {
+  transform: translate(4px, 4px);
+}
+.cta-strip-btn:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 4px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.site-footer {
+  background: #0d1117;
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(135deg, #22d3ee, #a855f7) 1;
+  padding: 48px 24px 32px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-bottom: 32px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-name {
+  font-family: var(--font-headline, 'Epilogue', sans-serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-tagline {
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.35);
+}
+
+.footer-links {
+  display: flex;
+  gap: 28px;
+}
+
+.footer-link {
+  font-family: var(--font-label, 'Space Grotesk', sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(241, 245, 249, 0.5);
+  text-decoration: none;
+  transition: color 100ms ease;
+}
+.footer-link:hover {
+  color: #22d3ee;
+}
+.footer-link:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+
+.footer-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #22d3ee;
+  border-radius: 50%;
+}
+
+.status-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(34, 211, 238, 0.7);
+}
+
+.footer-credit {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 12px;
+  color: rgba(241, 245, 249, 0.25);
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
 </style>
